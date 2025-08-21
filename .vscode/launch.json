@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/hannu/linked-list/src",
-      "program": "/home/hannu/linked-list/src/build/Debug/outDebug",
+      "cwd": "",
+      "program": "",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
