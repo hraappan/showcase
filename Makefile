@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Iinc -fsanitize=address -lm
+CFLAGS = -Wall -Wextra -Iinc -fsanitize=address -lm -lcrypto
 SRC_DIR = src
 INC_DIR = inc
 OBJ_DIR = obj

@@ -39,7 +39,7 @@
     "-DSERVER"
   ],
   "C_Cpp_Runner.linkerArgs": [
-    "-lm"
+    "-lm -lcrypto"
   ],
   "C_Cpp_Runner.includePaths": [
     "${workspaceFolder}/inc"
@@ -79,6 +79,7 @@
     "in.h": "c",
     "compare": "c",
     "cstdint": "c",
-    "unistd.h": "c"
+    "unistd.h": "c",
+    "logging.h": "c"
   }
 }
