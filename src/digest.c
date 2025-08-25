@@ -54,7 +54,7 @@ static const char *md_alg = "SHA256";
 /**
  * Internal helper to allocate and bind SHA-256 algorithm to a digest context.
  */
-static MessageDigest *MD_set_digest_alg(__attribute__((__unused__)) void *params)
+static MessageDigest *MD_set_digest_alg(void)
 {
     EVP_MD_CTX *ctx = NULL;
     EVP_MD *sha256 = NULL;
@@ -85,8 +85,10 @@ static MessageDigest *MD_set_digest_alg(__attribute__((__unused__)) void *params
         return NULL;
     }
 
+    INFO_PRINT("MessageDigest is now intialized");
     md->ctx = ctx;
     md->sha256 = sha256;
+    md->md_size = EVP_MD_get_size(sha256);
     return md;
 }
 
@@ -117,18 +119,20 @@ inline int MD_calculate_digest(MessageDigest *md, unsigned char *out, unsigned i
 /**
  * Public initializer for message digest.
  */
-MessageDigest *MD_digest_init(void *params)
+MessageDigest *MD_digest_init()
 {
-    return MD_set_digest_alg(params);
+    return MD_set_digest_alg();
 }
 
 /**
  * Free digest context and algorithm resources.
  */
-void MD_digest_free(MessageDigest *md)
+void MD_digest_free(MessageDigest **md)
 {
-    if (md == NULL) return;
-    EVP_MD_CTX_free(md->ctx);
-    EVP_MD_free(md->sha256);
-    free(md);
+    if (*md == NULL || md == NULL) return;
+    EVP_MD_CTX_free((*md)->ctx);
+    EVP_MD_free((*md)->sha256);
+    (*md)->ctx = NULL;
+    (*md)->sha256 = NULL;
+    free(*md);
 }
