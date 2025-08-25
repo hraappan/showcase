@@ -1,5 +1,4 @@
 
-#ifdef CLIENT
 #include "logging.h"
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -42,5 +41,3 @@ int main(int argc, char *argv[])
     close(tcp_sock);
     return 0;
 }
-
-#endif

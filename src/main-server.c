@@ -1,4 +1,3 @@
-#ifdef SERVER
 #include "logging.h"
 
 #include <sys/socket.h>
@@ -79,4 +78,3 @@ int main(__attribute__((__unused__)) int argc, __attribute__((__unused__)) char 
     INFO_PRINT("Socket is now closed.");
     return 0;
 }
-#endif
