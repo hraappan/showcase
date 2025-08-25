@@ -4,5 +4,6 @@ Includes basic linux c stuff
 
 TODO:
 
-Handle client socket
-Handle secure connection
+Handle secure connection, digest, encrypt, decrypt, etc
+Give ip as parameter
+
