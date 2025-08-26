@@ -48,7 +48,7 @@ MemoryPool *pool_init(size_t bsize, size_t bcount)
     mp->flist = malloc(sizeof(void *) * bcount);
     mp->block_map = calloc(1, (size_t) ceil((double) bcount / 8.0));
 
-    for (size_t i=0; i<=bcount; i++) {
+    for (size_t i=0; i<bcount; i++) {
         mp->flist[i] = ((char *) mp->pool + (i * bsize));
     }
 
