@@ -9,7 +9,7 @@
            __FILE__, __LINE__, __func__, ##__VA_ARGS__)
 
 #define ERROR_PRINT(fmt, ...) \
-    printf("[INFO] %s:%d %s(): " fmt "\n", \
+    printf("[ERROR] %s:%d %s(): " fmt "\n", \
            __FILE__, __LINE__, __func__, ##__VA_ARGS__)
 
 #if DEBUG

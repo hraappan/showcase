@@ -5,29 +5,29 @@ static void tls_info_callback(const SSL *ssl, int where, int ret) {
     const char *state = "";
     
     if (where & SSL_CB_HANDSHAKE_START) {
-        printf("[TLS] Handshake started\n");
+        DEBUG_PRINT("[TLS] Handshake started\n");
     }
     
     if (where & SSL_CB_LOOP) {
         state = SSL_state_string_long(ssl);
-        printf("[TLS] LOOP: state=%s\n", state);
+        DEBUG_PRINT("[TLS] LOOP: state=%s\n", state);
     }
     
     if (where & SSL_CB_EXIT) {
         state = SSL_state_string_long(ssl);
         if (ret == 0) {
-            printf("[TLS] EXIT: state=%s, handshake failed\n", state);
+            DEBUG_PRINT("[TLS] EXIT: state=%s, handshake failed\n", state);
         } else if (ret < 0) {
-            printf("[TLS] EXIT: state=%s, handshake error\n", state);
+            DEBUG_PRINT("[TLS] EXIT: state=%s, handshake error\n", state);
         } else {
-            printf("[TLS] EXIT: state=%s, handshake ok\n", state);
+            DEBUG_PRINT("[TLS] EXIT: state=%s, handshake ok\n", state);
         }
     }
     
     if (where & SSL_CB_ALERT) {
         int alert_type = (where >> 8) & 0xff; // alert type
         int alert_desc = where & 0xff;       // alert description
-        printf("[TLS] ALERT: type=%s, desc=%s (%d)\n",
+        DEBUG_PRINT("[TLS] ALERT: type=%s, desc=%s (%d)\n",
                SSL_alert_type_string_long(alert_type),
                SSL_alert_desc_string_long(alert_desc),
                alert_desc);
@@ -104,8 +104,8 @@ TLSConnection *TLS_init_server()
 
     // Salli laaja cipher-lista
     if (!SSL_CTX_set_cipher_list(ctx, "ALL:@SECLEVEL=0")) {
-    ERR_print_errors_fp(stderr);
-}
+        ERROR_PRINT("%s", stderr);
+    }
     SSL_CTX_set_info_callback(ctx, tls_info_callback);
     TLSConnection *tls = malloc(sizeof(TLSConnection));
     if (!tls) {
