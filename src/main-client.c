@@ -74,7 +74,6 @@ int main(int argc, char *argv[])
         int err = SSL_get_error(tls->ssl, ret);
         ERROR_PRINT("SSL Connect was not successfull, error %i", err);
         ERROR_PRINT("%s", stderr);
-        ERR_print_errors_fp(stderr);  // <-- tämä näyttää oikean virheen
         close(tcp_sock);
         TLS_free_connection(&tls);
         return -1;
