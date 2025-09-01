@@ -3,7 +3,7 @@
 
 #define MD_DIGEST_SIZE(X) EVP_MD_get_size(X)
 
-typedef struct MD {
+typedef struct MD_T {
     EVP_MD_CTX *ctx;
     EVP_MD *sha256;
     int md_size;
