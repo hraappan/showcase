@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Iinc -fsanitize=address -lm -lcrypto
+CFLAGS = -Wall -Wextra -Iinc -fsanitize=address -lm -lcrypto -lssl
 SRC_DIR = src
 OBJ_DIR = obj
 
