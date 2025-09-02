@@ -32,12 +32,12 @@ static int session_handler(int preverify_ok, X509_STORE_CTX *ctx)
             return 0;
         }
 
-        // Public key whitelist
         EVP_PKEY *pubkey = X509_get_pubkey(cert);
         if (!pubkey) return 0;
 
         int allowed = 0;
-        for (int i = 0; ALLOWED_PUBKEYS[i]; i++) {
+        int whitelist_s = sizeof(ALLOWED_PUBKEYS) / sizeof(ALLOWED_PUBKEYS[0]);
+        for (int i = 0; i<whitelist_s; i++) {
             BIO *bio = BIO_new_mem_buf(ALLOWED_PUBKEYS[i], -1);
             EVP_PKEY *allowed_pub = PEM_read_bio_PUBKEY(bio, NULL, NULL, NULL);
             BIO_free(bio);
@@ -121,7 +121,7 @@ int TLS_server_set_client_verification(TLSConnection **tls, const bool verificat
         
         ret = SSL_CTX_load_verify_locations((*tls)->ctx, CA_FILE, NULL);
         if (!ret) {
-            ERROR_PRINT("Failed to load CA certificate file: %s, make sure to define CA_FILE env to proper file location\n", CA_FILE);
+            ERROR_PRINT("Failed to load CA certificate file: %s, make sure to define CA_CERT_FILE env to proper file location\n", CA_FILE);
             return ret;
         }
 
