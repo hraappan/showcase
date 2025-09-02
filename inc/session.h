@@ -30,16 +30,3 @@ void TLS_set_session_timeout(TLSConnection **tls, int timeout);
  * 
  */
 int TLS_server_set_client_verification(TLSConnection **tls, const bool verification);
-
-/**
- * 
- * 
- */
-int TLS_client_set_certificate(TLSConnection **tls);
-
-
-/**
- * 
- * 
- */
-int TLS_server_set_certificate(TLSConnection **tls);

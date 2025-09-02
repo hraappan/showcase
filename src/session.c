@@ -85,32 +85,6 @@ void TLS_set_session_timeout(TLSConnection **tls, int timeout)
     SSL_CTX_set_timeout((*tls)->ctx, timeout);
 }
 
-int TLS_client_set_certificate(TLSConnection **tls)
-{
-    if (tls == NULL || *tls == NULL) return -1;
-    const char *CERT = getenv("CL_CERT_FILE");
-    if (CERT == NULL) return -1;
-    if (SSL_CTX_use_certificate_file((*tls)->ctx, CERT, SSL_FILETYPE_PEM) != 1)
-    {
-        ERROR_PRINT("Cannot load client certificate, please define env CA_CERT");
-        return -1;
-    }
-
-    const char *KEY = getenv("CL_KEY_FILE");
-    if (KEY==NULL) return -1;
-    if (SSL_CTX_use_PrivateKey_file((*tls)->ctx, KEY, SSL_FILETYPE_PEM) != 1) {
-        ERROR_PRINT("Cannot load client private key");
-        return -1;
-    }
-
-    if (SSL_CTX_check_private_key((*tls)->ctx) != 1) {
-        ERROR_PRINT("Private key does not match");
-        return -1;
-    }
-
-    return 1;
-}
-
 int TLS_server_set_client_verification(TLSConnection **tls, const bool verification)
 {
     if (tls == NULL || *tls == NULL) return -1;
